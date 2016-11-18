@@ -1,6 +1,11 @@
-
-import parent.Flower;
+import Delivery.DHLDeliveryStrategy;
+import Payments.PayPalPaymentStrategy;
 import enums.FlowerColor;
+import item_decorators.BasketDecorator;
+import item_decorators.PaperDecorator;
+import item_decorators.RibbonDecorator;
+import order.Order;
+import spec.CactusSpec;
 import spec.FlowerSpec;
 
 import java.util.Arrays;
@@ -12,16 +17,22 @@ public class FlowerMain {
 
     public static void main(String args[]) {
         FlowerBucket bucket = new FlowerBucket();
-        Flower mak = new Flower(new FlowerSpec(FlowerColor.RED, FlowerType.MAK, 10), true, 12.5);
-        Flower romashka = new Flower(new FlowerSpec(FlowerColor.BLUE, FlowerType.ROMASHKA, 5), true, 12.5);
-        Flower rose = new Flower(new FlowerSpec(FlowerColor.RED, FlowerType.ROSE, 10), true, 12.5);
-        FlowerSpec flower = new FlowerSpec(FlowerColor.RED, FlowerType.MAK, 10);
 
-        bucket.addFlower(mak);
-        bucket.addFlower(romashka);
-        bucket.addFlower(rose);
+        CactusFlower cactus_1 = new CactusFlower(new CactusSpec(FlowerColor.GREEN, 7, 15, 3, true));
+        RomashkaFlower romashka_1 = new RomashkaFlower(new FlowerSpec(FlowerColor.BLUE, 5, 15, false));
+        bucket.addFlower(cactus_1);
+        bucket.addFlower(romashka_1);
+        RibbonDecorator ribbon = new RibbonDecorator(bucket);
+        PaperDecorator paper = new PaperDecorator(bucket);
+        BasketDecorator basket = new BasketDecorator(bucket);
+        Order order = new Order();
+        order.addItem(ribbon);
+        order.addItem(paper);
+        order.addItem(basket);
+        order.setDeliveryStrategy(new DHLDeliveryStrategy());
+        order.setPaymentStrategy(new PayPalPaymentStrategy());
+        order.processOrder();
 
-        System.out.println(Arrays.toString(bucket.searchFlower(flower)));
 
     }
 }

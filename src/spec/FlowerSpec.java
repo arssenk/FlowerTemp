@@ -1,7 +1,6 @@
 package spec;
 
 import enums.FlowerColor;
-import parent.Spec;
 
 
 /**
@@ -9,9 +8,14 @@ import parent.Spec;
  */
 public class FlowerSpec extends Spec{
     public boolean freshness;
-    public FlowerSpec(FlowerColor color, double length, boolean freshness) {
-        super(color, length);
+
+
+    public FlowerSpec(FlowerColor color, int length, double price, boolean freshness) {
+        super(color, length, price);
         this.freshness = freshness;
     }
-
+    @Override
+    public String getType(){
+        return "Flower";
+    }
 }

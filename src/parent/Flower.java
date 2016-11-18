@@ -1,25 +1,25 @@
 package parent;
 
 import enums.FlowerColor;
+import spec.Spec;
 
 /**
  * Created by matt on 10/3/16.
  */
 public abstract class Flower {
 
-    protected boolean fresh;
-    protected double price;
+
     protected Spec spec;
 
-    public Flower(Spec spec, boolean fresh, double price) {
+    public Flower(Spec spec) {
         this.spec = spec;
-        this.fresh = fresh;
-        this.price = price;
     }
 
-
+    double price(){
+        return spec.getPrice();
+    }
     public double getPrice() {
-        return price;
+        return this.price();
     }
     public double getLength() {
         return this.spec.getLength();
@@ -27,14 +27,14 @@ public abstract class Flower {
     public FlowerColor getColor() {
         return this.spec.getColor();
     }
-    public boolean isFresh() {
-        return fresh;
+
+    public String getType(){
+        return this.spec.getType();
     }
 
 
     public String toString() {
-        return "Price:  " + String.valueOf(getPrice()) + ", Color is " + getColor() + ", Freshness level is " +
-                String.valueOf(isFresh()) + ", Height: " + String.valueOf(getLength());
+        return "Price:  " + String.valueOf(getPrice()) + ", Type is: " +  this.spec.getType()+ ", Color is " + getColor() + ", Height: " + String.valueOf(getLength());
     }
 
 }

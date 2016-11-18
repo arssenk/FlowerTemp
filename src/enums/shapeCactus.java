@@ -10,7 +10,11 @@ public enum shapeCactus {
             case ROUND:
                 return "Round";
             case STRAIGHT:
-
+                return "Strainght";
+            case RECTANGLE:
+                return "Recyangle";
+            default:
+                return "No shape";
         }
     }
 }

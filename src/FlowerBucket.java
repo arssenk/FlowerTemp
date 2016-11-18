@@ -1,13 +1,14 @@
 /**
  * Created by matt on 10/3/16.
  */
+import interfaces.Item;
 import parent.Flower;
 import spec.FlowerSpec;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FlowerBucket {
+public class FlowerBucket implements Item{
     private int defaultSize = 10;
 
     private int insertIndex = 0; // insert, or better create method length()
@@ -20,6 +21,7 @@ public class FlowerBucket {
     }
 
     private void checkSize(){
+
         if (insertIndex == defaultSize - 1) {
             defaultSize *= 2;
             Flower[] b = new Flower[defaultSize];
@@ -75,7 +77,7 @@ public class FlowerBucket {
 
     public ArrayList<Flower> getFlower(String type){
 
-        ArrayList<Flower> tmp = new ArrayList<Flower>();
+        ArrayList<Flower> tmp = new ArrayList<>();
         for (int i = 0; i < insertIndex; i++) {
             if (a[i].getType().equals(type)) {
                 tmp.add(a[i]);
@@ -90,13 +92,22 @@ public class FlowerBucket {
         Flower[] tmp = new Flower[a.length];
         int k = 0;
         for (int i = 0; i < insertIndex; i++) {
-            if (a[i].getType() == spec.getFlowerType() && a[i].getColor() == spec.getColor() && a[i].getLength() == spec.getLength()){
+            if (a[i].getType() == spec.getType() && a[i].getColor() == spec.getColor() && a[i].getLength() == spec.getLength()){
                 tmp[k] = a[i];
                 k++;
         }
         }
-        //parent.Flower[] finalArray = new parent.Flower[tmp.length];
-        Flower[] finalArray = Arrays.copyOf(tmp, k);
-        return finalArray;
+        //parent.Flower[] finalArray = new parent.Flower[Item.length];
+        return Arrays.copyOf(tmp, k);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Flower Bucket " + this.toString();
+    }
+
+    @Override
+    public double price() {
+        return this.getTotalPrice();
     }
 }
